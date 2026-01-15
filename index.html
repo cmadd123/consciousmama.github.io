@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conscious Mama - Mindful Parenting Companion</title>
+    <meta name="description" content="Conscious Mama is your mindful parenting companion. Track milestones, discover activities, and create AI-powered learning paths for your child.">
+    <meta name="keywords" content="parenting, conscious parenting, mindful parenting, baby, toddler, milestones, development, activities">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Conscious Mama - Mindful Parenting Companion">
+    <meta property="og:description" content="Parent with presence and purpose. Track milestones, discover activities, and create personalized learning paths.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://consciousmama.github.io">
+    <meta property="og:image" content="images/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #D7F2EB 0%, #FFE9E1 100%);
+            display: flex;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content .tagline {
+            font-size: 1.5rem;
+            color: #5D6D7E;
+            margin-bottom: 30px;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .store-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .store-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .store-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .store-btn.apple {
+            background: #000;
+            color: #fff;
+        }
+
+        .store-btn.google {
+            background: #fff;
+            color: #333;
+            border: 2px solid #ddd;
+        }
+
+        .store-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .phone-mockup {
+            max-width: 350px;
+            width: 100%;
+            border-radius: 40px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: #fff;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2C3E50;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 30px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            border: 1px solid #eee;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            color: #2C3E50;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+        }
+
+        .screenshots-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .screenshots .section-title {
+            color: #fff;
+        }
+
+        .screenshots-grid {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+        }
+
+        .screenshot-item {
+            flex: 0 0 250px;
+            scroll-snap-align: center;
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .screenshot-item p {
+            color: #fff;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #FFE9E1 0%, #D7F2EB 100%);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            color: #2C3E50;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: #2C3E50;
+            color: #fff;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: #95A5A6;
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #95A5A6;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid #3D566E;
+            text-align: center;
+            color: #95A5A6;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .store-buttons {
+                justify-content: center;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .phone-mockup {
+                max-width: 280px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        /* Placeholder for screenshots */
+        .placeholder-phone {
+            width: 100%;
+            max-width: 350px;
+            aspect-ratio: 9/19;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+        }
+
+        .placeholder-screenshot {
+            width: 100%;
+            aspect-ratio: 9/19;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Conscious Mama</h1>
+                <p class="tagline">Mindful Parenting Companion</p>
+                <p>Parent with presence and purpose. Track your child's milestones, discover age-appropriate activities, and create AI-powered learning paths tailored to your family's needs.</p>
+                <div class="store-buttons">
+                    <a href="#" class="store-btn apple">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                        <span>App Store</span>
+                    </a>
+                    <a href="#" class="store-btn google">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                        <span>Google Play</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- Replace with actual screenshot -->
+                <div class="placeholder-phone">
+                    <span>App Screenshot<br>Coming Soon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="features-container">
+            <h2 class="section-title">Everything You Need</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧒</div>
+                    <h3>AI Learning Paths</h3>
+                    <p>Create personalized learning paths with step-by-step guidance, parent tips, and suggestions for when your child resists.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Milestone Tracking</h3>
+                    <p>Track your child's developmental milestones. Celebrate achievements and understand what to expect next.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Activity Suggestions</h3>
+                    <p>Tell us your mood and we'll suggest age-appropriate activities. Filter by energy level, setup time, and more.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🍽️</div>
+                    <h3>Meal Planning</h3>
+                    <p>Plan nutritious meals for your family. Save favorites and organize your weekly menu effortlessly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Calendar</h3>
+                    <p>Keep track of activities, appointments, and family events all in one organized place.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Beautiful Themes</h3>
+                    <p>Choose between vibrant Standard mode or calming Comfort mode for a personalized experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="screenshots">
+        <div class="screenshots-container">
+            <h2 class="section-title">See It In Action</h2>
+            <div class="screenshots-grid">
+                <div class="screenshot-item">
+                    <div class="placeholder-screenshot">Home Screen</div>
+                    <p>Home</p>
+                </div>
+                <div class="screenshot-item">
+                    <div class="placeholder-screenshot">Learning Paths</div>
+                    <p>Learning Paths</p>
+                </div>
+                <div class="screenshot-item">
+                    <div class="placeholder-screenshot">Activities</div>
+                    <p>Activities</p>
+                </div>
+                <div class="screenshot-item">
+                    <div class="placeholder-screenshot">Milestones</div>
+                    <p>Milestones</p>
+                </div>
+                <div class="screenshot-item">
+                    <div class="placeholder-screenshot">Meal Planning</div>
+                    <p>Meals</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Ready to Parent with Purpose?</h2>
+        <p>Join thousands of parents who are raising their children with intention and mindfulness.</p>
+        <div class="store-buttons" style="justify-content: center;">
+            <a href="#" class="store-btn apple">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                <span>App Store</span>
+            </a>
+            <a href="#" class="store-btn google">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                <span>Google Play</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>Conscious Mama</h3>
+                <p>Mindful parenting for modern families. Track milestones, discover activities, and grow together.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="support.html">Help Center</a></li>
+                    <li><a href="mailto:support@consciousmama.app">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Conscious Mama. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
