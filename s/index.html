@@ -304,12 +304,20 @@
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
         const isAndroid = /Android/.test(navigator.userAgent);
 
+        // Android intent URL - opens app directly without showing browser
+        const intentUrl = `intent://shared/${shareCode}#Intent;scheme=${appScheme};package=com.mycompany.momecoach;end`;
+
         // Try to open the app automatically
         function tryOpenApp() {
-            // Try deep link first
-            window.location.href = deepLink;
+            if (isAndroid) {
+                // Use intent URL for Android - opens app directly
+                window.location.href = intentUrl;
+            } else {
+                // For iOS and others, use the custom scheme
+                window.location.href = deepLink;
+            }
 
-            // After a delay, show the fallback buttons
+            // After a delay, show the fallback buttons (in case app didn't open)
             setTimeout(() => {
                 document.getElementById('loadingState').classList.add('hidden');
                 document.getElementById('actionButtons').classList.remove('hidden');
