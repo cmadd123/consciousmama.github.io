@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conscious Mama</title>
     <script>
-        // Handle share links: /s/{code} routes
+        // Handle share links: /consciousmama.github.io/s/{code} routes
         const path = window.location.pathname;
-        const shareMatch = path.match(/^\/s\/([a-z0-9]{8})$/i);
+        // Match both /s/{code} and /consciousmama.github.io/s/{code}
+        const shareMatch = path.match(/^(?:\/consciousmama\.github\.io)?\/s\/([a-z0-9]{8})$/i);
 
         if (shareMatch) {
             // This is a share link, redirect to the share page with the code as query param
             const shareCode = shareMatch[1];
-            window.location.replace('/s/index.html?code=' + shareCode);
+            window.location.replace('/consciousmama.github.io/s/index.html?code=' + shareCode);
         } else {
             // Not a share link, redirect to home
-            window.location.replace('/');
+            window.location.replace('/consciousmama.github.io/');
         }
     </script>
 </head>
