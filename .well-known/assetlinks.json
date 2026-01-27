@@ -2,7 +2,7 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "com.mycompany.momecoach",
+    "package_name": "com.momrise.app",
     "sha256_cert_fingerprints": [
       "D2:0E:D8:CB:79:08:77:57:7F:79:C4:1D:7B:1C:1C:54:E2:EE:E5:02:C5:8B:EE:71:08:5F:E3:57:5F:5D:55:F4",
       "21:F1:ED:CB:C8:A6:43:95:D8:B1:F2:62:29:B1:C7:87:33:1A:A4:0A:B1:B3:D5:B1:45:59:6E:7D:ED:E2:15:F5"
