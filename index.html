@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MomRise - Rising Above The Chaos</title>
-    <meta name="description" content="A mobile app for moms to help relieve the mental load. Track milestones, plan activities, and create personalized learning paths for your children.">
+    <title>MomRise - Plan Family Meals in 5 Minutes</title>
+    <meta name="description" content="Plan family meals in 5 minutes with MomRise. Budget-friendly recipes, Instacart integration, plus learning activities and milestones. Join the waitlist for early access + free meal planning guide.">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/consciousmama.github.io/favicon.ico">
@@ -643,6 +643,171 @@
                 align-items: center;
             }
         }
+
+        /* Email Capture Styles */
+        .waitlist-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .badge-icon {
+            font-size: 1.2rem;
+        }
+
+        .badge-text {
+            font-size: 0.9rem;
+            color: #5D4E60;
+            font-weight: 600;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #9B8A9E;
+            margin-top: 0.5rem;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #5D4E60;
+            margin-bottom: 2rem;
+        }
+
+        .email-capture-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .waitlist-form {
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
+            border: 2px solid #D7F2EB;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #52A097;
+        }
+
+        .email-input::placeholder {
+            color: #9B8A9E;
+        }
+
+        .privacy-note {
+            font-size: 0.85rem;
+            color: #9B8A9E;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        .success-message {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            animation: slideIn 0.4s ease;
+            text-align: center;
+        }
+
+        .success-icon {
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        .success-message h3 {
+            color: #52A097;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .success-message p {
+            color: #5D4E60;
+            font-size: 1rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Highlighted Feature Card */
+        .feature-card-highlighted {
+            background: linear-gradient(135deg, #52A097 0%, #39D2C0 100%);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(82, 160, 151, 0.3);
+        }
+
+        .feature-card-highlighted .feature-icon {
+            font-size: 3rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .feature-card-highlighted h3 {
+            color: white;
+        }
+
+        .feature-card-highlighted p {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .cta-content {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .form-group {
+                flex-direction: column;
+            }
+
+            .email-input {
+                width: 100%;
+            }
+
+            .waitlist-badge {
+                font-size: 0.85rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .feature-card-highlighted {
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 <body>
@@ -664,15 +829,43 @@
     <section class="hero">
         <div class="container hero-content">
             <div class="hero-text">
-                <h1>Parent with <span>presence</span>, not pressure</h1>
-                <p>A mobile app designed for moms who want to be intentional about their children's development without the overwhelm.</p>
-                <div class="hero-buttons">
-                    <a href="#download" class="btn btn-primary">
-                        Download Free
-                    </a>
-                    <a href="#features" class="btn btn-secondary">
-                        Learn More
-                    </a>
+                <div class="waitlist-badge">
+                    <span class="badge-icon">🔥</span>
+                    <span class="badge-text">517 moms joined this week</span>
+                </div>
+                <h1>Plan Family Meals in <span>5 Minutes</span></h1>
+                <p class="hero-subtitle">Plus learning activities, milestones & calendar</p>
+                <p class="hero-description">One beautiful app for the everyday chaos of parenting.</p>
+
+                <!-- Email Capture Form -->
+                <div class="email-capture-container">
+                    <form id="waitlist-form" class="waitlist-form">
+                        <div class="form-group">
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                required
+                                class="email-input"
+                            />
+                            <button type="submit" class="btn btn-primary">
+                                Get Early Access
+                            </button>
+                        </div>
+                        <p class="privacy-note">
+                            Free 7-day meal plan guide sent instantly • No spam, ever
+                        </p>
+                    </form>
+
+                    <div id="success-message" class="success-message" style="display: none;">
+                        <svg class="success-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#52A097" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <h3>You're on the list! 🎉</h3>
+                        <p>Check your email for your free meal planning guide.</p>
+                    </div>
                 </div>
             </div>
             <div class="hero-image">
@@ -696,23 +889,28 @@
         <div class="container">
             <div class="section-header">
                 <h2>Everything you need, nothing you don't</h2>
-                <p>Simple tools to help you stay connected with your child's growth and development.</p>
+                <p>From meal planning to learning activities—one app for the everyday chaos.</p>
             </div>
             <div class="features-grid">
+                <div class="feature-card feature-card-highlighted">
+                    <div class="feature-icon">🍽️</div>
+                    <h3>5-Minute Meal Planning</h3>
+                    <p>Create weekly meal plans in minutes. Budget-friendly recipes for picky eaters. Send grocery lists to Instacart with one tap.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Family Calendar</h3>
+                    <p>Plan your week with activities, meals, and reminders. Never wonder "what should we do today?" again.</p>
+                </div>
                 <div class="feature-card">
                     <div class="feature-icon">📚</div>
                     <h3>Learning Paths</h3>
-                    <p>Personalized activities tailored to your child's age and specific challenges. Step-by-step guidance when you need it.</p>
+                    <p>AI-powered learning activities for toddlers. Turn everyday challenges into growth opportunities with step-by-step guidance.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🎯</div>
                     <h3>Milestone Tracking</h3>
                     <p>Track developmental milestones with a beautiful, visual checklist. Celebrate every achievement, big or small.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <h3>Activity Ideas</h3>
-                    <p>Stuck on what to do? Get age-appropriate activity suggestions based on mood, energy level, and available time.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🍽️</div>
@@ -814,9 +1012,39 @@
 
     <!-- CTA Section -->
     <section class="cta" id="download">
-        <div class="container">
-            <h2>Ready to parent with intention?</h2>
-            <p>Download MomRise for free and start your journey toward calmer, more connected parenting.</p>
+        <div class="container cta-content">
+            <h2>Ready to Rise Above the Chaos?</h2>
+            <p>Join the waitlist and be first to know when MomRise launches</p>
+
+            <!-- Email Capture Form (Footer) -->
+            <form id="waitlist-form-footer" class="waitlist-form">
+                <div class="form-group">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email address"
+                        required
+                        class="email-input"
+                    />
+                    <button type="submit" class="btn btn-primary">
+                        Join the Waitlist
+                    </button>
+                </div>
+                <p class="privacy-note">
+                    Free 7-day meal plan guide sent instantly • We respect your privacy
+                </p>
+            </form>
+
+            <div id="success-message-footer" class="success-message" style="display: none;">
+                <svg class="success-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#52A097" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <h3>You're on the list! 🎉</h3>
+                <p>Check your email for your free meal planning guide.</p>
+            </div>
+
+            <!-- OLD: App Store buttons removed for pre-launch
             <div class="store-buttons">
                 <a href="#" class="store-btn">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -963,6 +1191,73 @@
                 }
             });
         });
+
+        // Email Waitlist Form Submission (writes to Firestore, triggers Cloud Function)
+        async function handleFormSubmit(formId, successMessageId) {
+            const form = document.getElementById(formId);
+            const successMessage = document.getElementById(successMessageId);
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const emailInput = this.querySelector('input[type="email"]');
+                const email = emailInput.value;
+                const submitButton = this.querySelector('button[type="submit"]');
+
+                // Disable button during submission
+                submitButton.disabled = true;
+                submitButton.textContent = 'Joining...';
+
+                try {
+                    // Write to Firestore waitlist collection (triggers Cloud Function to send email)
+                    const response = await fetch('https://firestore.googleapis.com/v1/projects/parenting-plus-7szrif/databases/(default)/documents/waitlist', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            fields: {
+                                email: { stringValue: email },
+                                source: { stringValue: 'pinterest_meal_planning' },
+                                created_at: { timestampValue: new Date().toISOString() },
+                                email_sent: { booleanValue: false }
+                            }
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error('Firestore error:', errorData);
+                        throw new Error('Failed to join waitlist');
+                    }
+
+                    // Hide form, show success message
+                    form.style.display = 'none';
+                    successMessage.style.display = 'block';
+
+                    // Track with analytics (if Google Analytics is added later)
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'waitlist_signup', {
+                            'event_category': 'engagement',
+                            'event_label': 'meal_planning_focus',
+                            'event_value': 1
+                        });
+                    }
+
+                    console.log('Waitlist signup successful:', email);
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Something went wrong. Please try again or email us directly at hello@momrise.app');
+                    submitButton.disabled = false;
+                    submitButton.textContent = formId.includes('footer') ? 'Join the Waitlist' : 'Get Early Access';
+                }
+            });
+        }
+
+        // Initialize both forms
+        handleFormSubmit('waitlist-form', 'success-message');
+        handleFormSubmit('waitlist-form-footer', 'success-message-footer');
     </script>
 </body>
 </html>
