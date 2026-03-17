@@ -1,26 +1,1263 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conscious Mama</title>
-    <script>
-        // Redirect shared links to the app or app store
-        const path = window.location.pathname;
-        if (path.startsWith('/shared/')) {
-            const code = path.substring('/shared/'.length);
-            // Try to open the app
-            window.location.href = 'consciousmama://shared/' + code;
-            // Fallback to app store after a delay
-            setTimeout(function() {
-                // You can update this to your Play Store URL when published
-                window.location.href = 'https://cmadd123.github.io/consciousmama.github.io/';
-            }, 2000);
+    <title>MomRise - Plan Family Meals in 5 Minutes</title>
+    <meta name="description" content="Plan family meals in 5 minutes with MomRise. Budget-friendly recipes, Instacart integration, plus learning activities and milestones. Join the waitlist for early access + free meal planning guide.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/consciousmama.github.io/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/consciousmama.github.io/favicon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #52A097;
+            --primary-dark: #2A6F67;
+            --primary-light: #39D2C0;
+            --background: #EDFFFD;
+            --background-soft: #F5FFFE;
+            --white: #FFFFFF;
+            --black: #000000;
+            --text-secondary: #666666;
+            --accent: #EE8B60;
         }
-    </script>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--black);
+            background-color: var(--background);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            padding: 16px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(82, 160, 151, 0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--black);
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: var(--white) !important;
+            padding: 10px 24px;
+            border-radius: 50px;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-dark);
+            color: var(--white) !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 80px;
+            background: linear-gradient(180deg, var(--white) 0%, var(--background) 100%);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 52px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: var(--black);
+        }
+
+        .hero-text h1 span {
+            color: var(--primary);
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 480px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--background);
+        }
+
+        .btn img {
+            height: 20px;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .phone-mockup {
+            width: 320px;
+            height: auto;
+            border-radius: 40px;
+            box-shadow: 0 40px 80px rgba(82, 160, 151, 0.3);
+        }
+
+        /* Tagline */
+        .tagline {
+            text-align: center;
+            padding: 60px 0;
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .tagline h2 {
+            font-size: 32px;
+            font-weight: 500;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: var(--background-soft);
+            padding: 40px 32px;
+            border-radius: 24px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(82, 160, 151, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 36px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 0;
+            background: var(--background);
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            background: var(--background-soft);
+            padding: 40px;
+            border-radius: 24px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .testimonial-text {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .author-info h4 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .author-info p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta h2 {
+            font-size: 44px;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .cta .btn-primary:hover {
+            background: var(--background);
+        }
+
+        .store-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .store-btn {
+            background: var(--white);
+            padding: 12px 24px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--black);
+            transition: transform 0.3s;
+        }
+
+        .store-btn:hover {
+            transform: translateY(-4px);
+        }
+
+        .store-btn svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .store-btn .text {
+            text-align: left;
+        }
+
+        .store-btn .text small {
+            font-size: 10px;
+            display: block;
+            opacity: 0.7;
+        }
+
+        .store-btn .text span {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 100px 0;
+            background: var(--background);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 24px 32px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-answer {
+            padding: 0 32px 24px;
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-question span {
+            font-size: 24px;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question span {
+            transform: rotate(45deg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            max-width: 300px;
+        }
+
+        .footer-links h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 12px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                flex-direction: column;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-text h1 {
+                font-size: 36px;
+            }
+
+            .section-header h2 {
+                font-size: 32px;
+            }
+
+            .cta h2 {
+                font-size: 32px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .store-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Email Capture Styles */
+        .waitlist-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .badge-icon {
+            font-size: 1.2rem;
+        }
+
+        .badge-text {
+            font-size: 0.9rem;
+            color: #5D4E60;
+            font-weight: 600;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #9B8A9E;
+            margin-top: 0.5rem;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #5D4E60;
+            margin-bottom: 2rem;
+        }
+
+        .email-capture-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .waitlist-form {
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
+            border: 2px solid #D7F2EB;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #52A097;
+        }
+
+        .email-input::placeholder {
+            color: #9B8A9E;
+        }
+
+        .privacy-note {
+            font-size: 0.85rem;
+            color: #9B8A9E;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        .success-message {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            animation: slideIn 0.4s ease;
+            text-align: center;
+        }
+
+        .success-icon {
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        .success-message h3 {
+            color: #52A097;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .success-message p {
+            color: #5D4E60;
+            font-size: 1rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Highlighted Feature Card */
+        .feature-card-highlighted {
+            background: linear-gradient(135deg, #52A097 0%, #39D2C0 100%);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(82, 160, 151, 0.3);
+        }
+
+        .feature-card-highlighted .feature-icon {
+            font-size: 3rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .feature-card-highlighted h3 {
+            color: white;
+        }
+
+        .feature-card-highlighted p {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .cta-content {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .form-group {
+                flex-direction: column;
+            }
+
+            .email-input {
+                width: 100%;
+            }
+
+            .waitlist-badge {
+                font-size: 0.85rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .feature-card-highlighted {
+                transform: scale(1);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Redirecting to Conscious Mama...</h1>
-    <p>If the app doesn't open, <a href="https://cmadd123.github.io/consciousmama.github.io/">visit our website</a>.</p>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">MomRise</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#testimonials">Stories</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#download" class="nav-cta">Download</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <div class="waitlist-badge">
+                    <span class="badge-icon">🔥</span>
+                    <span class="badge-text">517 moms joined this week</span>
+                </div>
+                <h1>Plan Family Meals in <span>5 Minutes</span></h1>
+                <p class="hero-subtitle">Plus learning activities, milestones & calendar</p>
+                <p class="hero-description">One beautiful app for the everyday chaos of parenting.</p>
+
+                <!-- Email Capture Form -->
+                <div class="email-capture-container">
+                    <form id="waitlist-form" class="waitlist-form">
+                        <div class="form-group">
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                required
+                                class="email-input"
+                            />
+                            <button type="submit" class="btn btn-primary">
+                                Get Early Access
+                            </button>
+                        </div>
+                        <p class="privacy-note">
+                            Free 7-day meal plan guide sent instantly • No spam, ever
+                        </p>
+                    </form>
+
+                    <div id="success-message" class="success-message" style="display: none;">
+                        <svg class="success-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#52A097" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <h3>You're on the list! 🎉</h3>
+                        <p>Check your email for your free meal planning guide.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- Replace with actual app screenshot -->
+                <div style="width: 300px; height: 600px; background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: 40px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; text-align: center; padding: 40px;">
+                    App Screenshot<br>Goes Here
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tagline -->
+    <section class="tagline">
+        <div class="container">
+            <h2>Take the mental load off, mama.</h2>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Everything you need, nothing you don't</h2>
+                <p>From meal planning to learning activities—one app for the everyday chaos.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card feature-card-highlighted">
+                    <div class="feature-icon">🍽️</div>
+                    <h3>5-Minute Meal Planning</h3>
+                    <p>Create weekly meal plans in minutes. Budget-friendly recipes for picky eaters. Send grocery lists to Instacart with one tap.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Family Calendar</h3>
+                    <p>Plan your week with activities, meals, and reminders. Never wonder "what should we do today?" again.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Learning Paths</h3>
+                    <p>AI-powered learning activities for toddlers. Turn everyday challenges into growth opportunities with step-by-step guidance.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Milestone Tracking</h3>
+                    <p>Track developmental milestones with a beautiful, visual checklist. Celebrate every achievement, big or small.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🍽️</div>
+                    <h3>Meal Planning</h3>
+                    <p>Plan nutritious meals for your family. Save favorites and organize your weekly menu effortlessly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Family Calendar</h3>
+                    <p>Keep track of activities, appointments, and family events all in one place. Assign tasks to family members.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍👩‍👧‍👦</div>
+                    <h3>Multiple Children</h3>
+                    <p>Managing more than one? Track each child's unique journey with their own profile and progress.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>Getting started is easy</h2>
+                <p>You're three steps away from a calmer, more intentional parenting journey.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Add Your Children</h3>
+                    <p>Create profiles for each child with their name, birthday, and photo. The app personalizes everything based on their age.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Set Your Goals</h3>
+                    <p>Tell us what challenges you're facing — potty training, learning colors, managing emotions — we'll help you tackle them.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Follow Your Path</h3>
+                    <p>Get personalized learning paths with daily activities, tips, and encouragement. Watch your child grow with confidence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Moms like you love it</h2>
+                <p>Join thousands of conscious parents on their intentional parenting journey.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Finally, an app that doesn't make me feel like I'm failing. The learning paths gave me confidence and my daughter actually looks forward to our 'practice time' now."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">S</div>
+                        <div class="author-info">
+                            <h4>Sarah M.</h4>
+                            <p>Mom of 2</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Potty training felt impossible until I found MomRise. The step-by-step guidance and 'what to do if they resist' tips were lifesavers!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">J</div>
+                        <div class="author-info">
+                            <h4>Jessica L.</h4>
+                            <p>Mom of 1</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"I love that I can track all three kids in one app. Each has their own milestones and activities. It keeps me organized without feeling overwhelming."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div class="author-info">
+                            <h4>Amanda K.</h4>
+                            <p>Mom of 3</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The activity suggestions are brilliant. When I'm exhausted and have no idea what to do with a cranky toddler, this app has my back."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div class="author-info">
+                            <h4>Michelle T.</h4>
+                            <p>Mom of 2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="download">
+        <div class="container cta-content">
+            <h2>Ready to Rise Above the Chaos?</h2>
+            <p>Join the waitlist and be first to know when MomRise launches</p>
+
+            <!-- Email Capture Form (Footer) -->
+            <form id="waitlist-form-footer" class="waitlist-form">
+                <div class="form-group">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email address"
+                        required
+                        class="email-input"
+                    />
+                    <button type="submit" class="btn btn-primary">
+                        Join the Waitlist
+                    </button>
+                </div>
+                <p class="privacy-note">
+                    Free 7-day meal plan guide sent instantly • We respect your privacy
+                </p>
+            </form>
+
+            <div id="success-message-footer" class="success-message" style="display: none;">
+                <svg class="success-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#52A097" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <h3>You're on the list! 🎉</h3>
+                <p>Check your email for your free meal planning guide.</p>
+            </div>
+
+            <!-- OLD: App Store buttons removed for pre-launch
+            <div class="store-buttons">
+                <a href="#" class="store-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                    <div class="text">
+                        <small>Download on the</small>
+                        <span>App Store</span>
+                    </div>
+                </a>
+                <a href="#" class="store-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                    <div class="text">
+                        <small>Get it on</small>
+                        <span>Google Play</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Questions? We've got answers.</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is MomRise free?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! MomRise is free to download and use. We believe every parent deserves access to helpful tools without financial barriers.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How are learning paths personalized?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        When you describe a challenge you're facing, MomRise creates a personalized learning path based on your child's age and developmental stage. Each path includes step-by-step activities, parent tips, and guidance for when things don't go as planned.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I track multiple children?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! You can add as many children as you need. Each child gets their own profile with personalized milestones, activities, and learning paths based on their individual age and needs.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is my data private and secure?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Your privacy is our priority. We never sell your personal information. All data is stored securely, and you can delete your account and all associated data at any time.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What ages is this app designed for?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        MomRise is designed for children from birth through elementary school (ages 0-8). The app automatically adjusts activities and milestones based on your child's age.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#" class="logo">MomRise</a>
+                    <p>Helping parents raise happy, healthy children with intention and without the overwhelm.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#download">Download</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MomRise. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FAQ Toggle Script -->
+    <script>
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Email Waitlist Form Submission (writes to Firestore, triggers Cloud Function)
+        async function handleFormSubmit(formId, successMessageId) {
+            const form = document.getElementById(formId);
+            const successMessage = document.getElementById(successMessageId);
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const emailInput = this.querySelector('input[type="email"]');
+                const email = emailInput.value;
+                const submitButton = this.querySelector('button[type="submit"]');
+
+                // Disable button during submission
+                submitButton.disabled = true;
+                submitButton.textContent = 'Joining...';
+
+                try {
+                    // Write to Firestore waitlist collection (triggers Cloud Function to send email)
+                    const response = await fetch('https://firestore.googleapis.com/v1/projects/parenting-plus-7szrif/databases/(default)/documents/waitlist', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            fields: {
+                                email: { stringValue: email },
+                                source: { stringValue: 'pinterest_meal_planning' },
+                                created_at: { timestampValue: new Date().toISOString() },
+                                email_sent: { booleanValue: false }
+                            }
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error('Firestore error:', errorData);
+                        throw new Error('Failed to join waitlist');
+                    }
+
+                    // Hide form, show success message
+                    form.style.display = 'none';
+                    successMessage.style.display = 'block';
+
+                    // Track with analytics (if Google Analytics is added later)
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'waitlist_signup', {
+                            'event_category': 'engagement',
+                            'event_label': 'meal_planning_focus',
+                            'event_value': 1
+                        });
+                    }
+
+                    console.log('Waitlist signup successful:', email);
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Something went wrong. Please try again or email us directly at hello@momrise.app');
+                    submitButton.disabled = false;
+                    submitButton.textContent = formId.includes('footer') ? 'Join the Waitlist' : 'Get Early Access';
+                }
+            });
+        }
+
+        // Initialize both forms
+        handleFormSubmit('waitlist-form', 'success-message');
+        handleFormSubmit('waitlist-form-footer', 'success-message-footer');
+    </script>
 </body>
 </html>
