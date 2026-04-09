@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shared Content - Conscious Mama</title>
-    <meta name="description" content="View shared content from Conscious Mama - a mindful parenting app">
+    <title>Shared Content - MomRise</title>
+    <meta name="description" content="View shared content from MomRise - the parenting app for meal planning, learning paths, and milestones">
 
     <!-- Open Graph tags for social sharing -->
-    <meta property="og:title" content="Shared from Conscious Mama">
-    <meta property="og:description" content="A fellow mama shared something with you! Open in the Conscious Mama app to view it.">
+    <meta property="og:title" content="Shared from MomRise">
+    <meta property="og:description" content="A fellow mama shared something with you! Open in the MomRise app to view it.">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Conscious Mama">
+    <meta property="og:site_name" content="MomRise">
 
     <!-- App deep link meta tags -->
     <meta name="apple-itunes-app" content="app-id=APPSTOREID">
@@ -248,14 +248,14 @@
 <body>
     <div class="container">
         <div class="card">
-            <div class="logo">Conscious Mama</div>
+            <div class="logo">MomRise</div>
 
             <div class="icon">
                 <span id="contentIcon">🎁</span>
             </div>
 
             <h1 id="title">Someone shared something with you!</h1>
-            <p class="subtitle" id="subtitle">A fellow mama wants to share content from Conscious Mama with you.</p>
+            <p class="subtitle" id="subtitle">A fellow mama wants to share content from MomRise with you.</p>
 
             <div id="actionButtons">
                 <button class="btn btn-primary" id="openAppBtn">Open in App</button>
@@ -312,14 +312,14 @@
             document.getElementById('shareCode').textContent = shareCode.toUpperCase();
         } else {
             // No valid share code
-            document.getElementById('title').textContent = 'Welcome to Conscious Mama';
-            document.getElementById('subtitle').textContent = 'Download the app to start your mindful parenting journey.';
+            document.getElementById('title').textContent = 'Welcome to MomRise';
+            document.getElementById('subtitle').textContent = 'Download the app to start your parenting journey.';
             document.getElementById('shareCodeSection').classList.add('hidden');
             document.getElementById('contentIcon').textContent = '🌱';
         }
 
         // Deep link URL schemes
-        const appScheme = 'consciousmama';
+        const appScheme = 'momecoach';
         const deepLink = `${appScheme}://shared/${shareCode}`;
 
         // Detect platform

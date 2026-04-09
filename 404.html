@@ -79,7 +79,7 @@
 
         if (shareCode) {
             // Try to open in app using custom scheme first
-            const appUrl = `consciousmama://shared/${shareCode}`;
+            const appUrl = `momecoach://shared/${shareCode}`;
             window.location.href = appUrl;
 
             // Fallback: Show manual open instructions after 2 seconds
@@ -89,7 +89,7 @@
             }, 2000);
         } else {
             // Not a share link, redirect to home
-            window.location.replace('/consciousmama.github.io/');
+            window.location.replace('/');
         }
     </script>
 </head>
