@@ -519,7 +519,7 @@
                 <!-- Plan Toggle -->
                 <div class="plan-toggle">
                     <button class="plan-toggle-btn active" id="monthlyBtn" onclick="selectPlan('monthly')">Monthly</button>
-                    <button class="plan-toggle-btn" id="yearlyBtn" onclick="selectPlan('yearly')">Yearly <span class="save-badge">Save 40%</span></button>
+                    <button class="plan-toggle-btn" id="yearlyBtn" onclick="selectPlan('yearly')">Yearly <span class="save-badge">Save 17%</span></button>
                 </div>
 
                 <!-- Monthly pricing -->
@@ -534,10 +534,10 @@
                 <!-- Yearly pricing -->
                 <div id="yearlyPlan" style="display: none;">
                     <div class="price-row">
-                        <span class="price-amount">$49.99</span>
+                        <span class="price-amount">$69.99</span>
                         <span class="price-period">/year</span>
                     </div>
-                    <p class="price-note">$4.17/month · saves $33.89/year · cancel anytime</p>
+                    <p class="price-note">$5.83/month · saves $13.89/year · cancel anytime</p>
                 </div>
 
                 <ul class="features-list">
@@ -674,7 +674,7 @@
                 monthlyPlan.style.display = 'none';
                 yearlyPlan.style.display = 'block';
                 ctaBtn.href = YEARLY_LINK;
-                finePrint.innerHTML = 'No charge today. $49.99/year starts after 7-day trial.<br>That\'s just $4.17/month. Cancel anytime.';
+                finePrint.innerHTML = 'No charge today. $69.99/year starts after 7-day trial.<br>That\'s just $5.83/month. Cancel anytime.';
             }
         }
 
