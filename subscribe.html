@@ -425,6 +425,47 @@
         .store-btn .text small { font-size: 9px; display: block; opacity: 0.7; }
         .store-btn .text span { font-weight: 600; font-size: 14px; }
 
+        /* Plan toggle */
+        .plan-toggle {
+            display: flex;
+            background: #f0f8f7;
+            border-radius: 50px;
+            padding: 4px;
+            margin-bottom: 24px;
+        }
+
+        .plan-toggle-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .plan-toggle-btn.active {
+            background: white;
+            color: #1a2e2c;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .save-badge {
+            display: inline-block;
+            background: #E8F5E9;
+            color: #2E7D32;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 50px;
+            margin-left: 6px;
+        }
+
         /* Mobile */
         @media (max-width: 700px) {
             .subscribe-layout { grid-template-columns: 1fr; }
@@ -475,38 +516,57 @@
             <div class="plan-card">
                 <div class="trial-badge">🎁 7-Day Free Trial</div>
 
-                <div class="price-row">
-                    <span class="price-amount">$6.99</span>
-                    <span class="price-period">/month</span>
+                <!-- Plan Toggle -->
+                <div class="plan-toggle">
+                    <button class="plan-toggle-btn active" id="monthlyBtn" onclick="selectPlan('monthly')">Monthly</button>
+                    <button class="plan-toggle-btn" id="yearlyBtn" onclick="selectPlan('yearly')">Yearly <span class="save-badge">Save 40%</span></button>
                 </div>
-                <p class="price-note">after your free trial · billed monthly · cancel anytime</p>
+
+                <!-- Monthly pricing -->
+                <div id="monthlyPlan">
+                    <div class="price-row">
+                        <span class="price-amount">$6.99</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <p class="price-note">after your 7-day free trial · cancel anytime</p>
+                </div>
+
+                <!-- Yearly pricing -->
+                <div id="yearlyPlan" style="display: none;">
+                    <div class="price-row">
+                        <span class="price-amount">$49.99</span>
+                        <span class="price-period">/year</span>
+                    </div>
+                    <p class="price-note">$4.17/month · saves $33.89/year · cancel anytime</p>
+                </div>
 
                 <ul class="features-list">
-                    <li><span class="check-icon">✓</span> AI-powered meal planning & recipes</li>
-                    <li><span class="check-icon">✓</span> Send grocery list to Instacart</li>
-                    <li><span class="check-icon">✓</span> Personalized learning paths for your child</li>
-                    <li><span class="check-icon">✓</span> Family calendar with recurring events</li>
-                    <li><span class="check-icon">✓</span> Developmental milestone tracking</li>
-                    <li><span class="check-icon">✓</span> Unlimited children profiles</li>
-                    <li><span class="check-icon">✓</span> To-do lists & reminders</li>
+                    <li><span class="check-icon">✓</span> 🍽️ Weekly meal plans in minutes — dinner is handled</li>
+                    <li><span class="check-icon">✓</span> 🛒 Send grocery list to Instacart with one tap</li>
+                    <li><span class="check-icon">✓</span> 🧩 Step-by-step learning paths for every parenting challenge</li>
+                    <li><span class="check-icon">✓</span> 📅 Family calendar — see who needs to be where, when</li>
+                    <li><span class="check-icon">✓</span> ⭐ Milestone tracking — capture moments before they're gone</li>
+                    <li><span class="check-icon">✓</span> 🎨 Activity ideas — never scramble for what to do today</li>
+                    <li><span class="check-icon">✓</span> 👶 Unlimited children profiles</li>
+                    <li><span class="check-icon">✓</span> ✅ To-do lists & reminders</li>
                 </ul>
 
                 <!--
                     SETUP INSTRUCTIONS:
-                    1. In your Stripe Dashboard, create a Product: "MomRise Monthly"
-                    2. Create a Price: $6.99/month recurring with 7-day free trial
-                    3. Create a Payment Link for this price
-                    4. In the Payment Link settings, set:
+                    1. In Stripe Dashboard, create TWO Payment Links:
+                       a. Monthly: $6.99/month with 7-day free trial
+                       b. Yearly: $49.99/year with 7-day free trial
+                    2. For BOTH links, set:
                        - Success URL: https://momrise.app/subscribe?success=true
                        - Cancel URL: https://momrise.app/subscribe?canceled=true
-                    5. Replace STRIPE_PAYMENT_LINK_URL below with your Payment Link URL
+                    3. Replace the URLs below with your Payment Link URLs
                        (looks like: https://buy.stripe.com/XXXXXXXX)
                 -->
-                <a href="STRIPE_PAYMENT_LINK_URL" class="cta-btn" id="ctaBtn">
+                <a href="STRIPE_MONTHLY_LINK" class="cta-btn" id="ctaBtn">
                     Start Free Trial →
                 </a>
 
-                <p class="fine-print">
+                <p class="fine-print" id="finePrint">
                     No charge today. $6.99/month starts after 7-day trial.<br>
                     Cancel anytime — no questions asked.
                 </p>
@@ -516,18 +576,23 @@
             <div class="benefits-column">
                 <div class="benefit-card">
                     <span class="icon">🍽️</span>
-                    <h3>Dinner is handled</h3>
-                    <p>Stop staring at the fridge at 5pm. Generate a full week of meals in 2 minutes, then tap to send the grocery list straight to Instacart.</p>
+                    <h3>Stop asking "what's for dinner?"</h3>
+                    <p>Plan your family's meals in 5 minutes. Browse recipes for picky eaters, then send your grocery list to Instacart with one tap.</p>
                 </div>
                 <div class="benefit-card">
-                    <span class="icon">📚</span>
-                    <h3>Parenting with a plan</h3>
-                    <p>Describe a challenge you're facing — potty training, learning to share, managing big emotions — and get a personalized step-by-step learning path.</p>
+                    <span class="icon">🧩</span>
+                    <h3>Potty training? Sleep regression? We've got you.</h3>
+                    <p>Tell us what challenge you're facing, and get a step-by-step learning path with parent tips and guidance for when things don't go as planned.</p>
                 </div>
                 <div class="benefit-card">
-                    <span class="icon">🎯</span>
-                    <h3>Never miss a milestone</h3>
-                    <p>Beautiful visual milestone tracker tailored to your child's age. Celebrate every achievement and know what to look forward to next.</p>
+                    <span class="icon">📅</span>
+                    <h3>One calendar for your whole crew</h3>
+                    <p>Meals, events, tasks, recurring reminders — all in one place. Assign to mom, dad, or individual kids so everyone knows the plan.</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="icon">⭐</span>
+                    <h3>Capture every milestone</h3>
+                    <p>Beautiful visual tracker tailored to your child's age. Celebrate every first step, first word, and everything in between.</p>
                 </div>
                 <div class="trust-row">
                     <div class="trust-badge">🔒 Secure checkout</div>
@@ -581,14 +646,44 @@
     </div>
 
     <script>
+        // Plan URLs — REPLACE THESE with your Stripe Payment Link URLs
+        const MONTHLY_LINK = 'STRIPE_MONTHLY_LINK';
+        const YEARLY_LINK = 'STRIPE_YEARLY_LINK';
+
+        let currentPlan = 'monthly';
+
+        function selectPlan(plan) {
+            currentPlan = plan;
+            const monthlyBtn = document.getElementById('monthlyBtn');
+            const yearlyBtn = document.getElementById('yearlyBtn');
+            const monthlyPlan = document.getElementById('monthlyPlan');
+            const yearlyPlan = document.getElementById('yearlyPlan');
+            const ctaBtn = document.getElementById('ctaBtn');
+            const finePrint = document.getElementById('finePrint');
+
+            if (plan === 'monthly') {
+                monthlyBtn.classList.add('active');
+                yearlyBtn.classList.remove('active');
+                monthlyPlan.style.display = 'block';
+                yearlyPlan.style.display = 'none';
+                ctaBtn.href = MONTHLY_LINK;
+                finePrint.innerHTML = 'No charge today. $6.99/month starts after 7-day trial.<br>Cancel anytime — no questions asked.';
+            } else {
+                yearlyBtn.classList.add('active');
+                monthlyBtn.classList.remove('active');
+                monthlyPlan.style.display = 'none';
+                yearlyPlan.style.display = 'block';
+                ctaBtn.href = YEARLY_LINK;
+                finePrint.innerHTML = 'No charge today. $49.99/year starts after 7-day trial.<br>That\'s just $4.17/month. Cancel anytime.';
+            }
+        }
+
         // Handle return from Stripe checkout
         const params = new URLSearchParams(window.location.search);
 
         if (params.get('success') === 'true') {
             document.getElementById('successBanner').classList.add('show');
-            // Scroll to top to show banner
             window.scrollTo(0, 0);
-            // Disable CTA since they already subscribed
             const btn = document.getElementById('ctaBtn');
             btn.textContent = '✓ Subscription Active';
             btn.style.background = 'linear-gradient(135deg, #4CAF50, #388E3C)';
@@ -597,7 +692,6 @@
         }
 
         if (params.get('canceled') === 'true') {
-            // Show a subtle message
             const header = document.querySelector('.page-header p');
             header.textContent = 'No worries! Your trial is still waiting whenever you\'re ready.';
         }
