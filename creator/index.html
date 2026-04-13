@@ -483,95 +483,120 @@
                         </div>
                     </div>
 
-                    <!-- Live preview — realistic phone mockup -->
+                    <!-- Live preview — exact home page replica -->
                     <div style="margin-top: 24px;">
                         <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Live Preview</div>
-                        <!-- Phone frame -->
-                        <div style="max-width: 280px; margin: 0 auto; border-radius: 32px; border: 3px solid #222; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+                        <div style="max-width: 300px; margin: 0 auto; border-radius: 36px; border: 4px solid #1a1a1a; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.18);">
                             <!-- Status bar -->
-                            <div style="background: #222; padding: 6px 16px; display: flex; justify-content: space-between; align-items: center;">
-                                <span style="color: white; font-size: 10px; font-weight: 600;">9:41</span>
-                                <span style="color: white; font-size: 10px;">●●● ▐▐ 🔋</span>
+                            <div style="background: rgba(0,0,0,0.03); padding: 8px 20px 4px; display: flex; justify-content: space-between; align-items: center;" id="prev-statusbar">
+                                <span style="font-size: 11px; font-weight: 600; color: #333;">9:41</span>
+                                <div style="display: flex; gap: 4px; align-items: center;">
+                                    <div style="width: 14px; height: 10px; border: 1.5px solid #333; border-radius: 2px; position: relative;"><div style="position:absolute;right:-3px;top:2px;width:2px;height:5px;background:#333;border-radius:0 1px 1px 0;"></div></div>
+                                </div>
                             </div>
-                            <!-- App content -->
-                            <div id="themePreview" style="padding: 16px;">
+
+                            <!-- App body -->
+                            <div id="themePreview" style="padding: 16px 16px 8px; min-height: 420px; font-family: 'Inter', sans-serif;">
+
                                 <!-- Greeting -->
-                                <div style="margin-bottom: 14px;">
-                                    <div style="font-size: 10px; color: #9B8A9E;">Good morning</div>
-                                    <div id="prev-greeting" style="font-size: 18px; font-weight: 700; color: #5D4E60;">Sarah</div>
-                                    <div style="font-size: 10px; color: #9B8A9E;">Sunday, April 13</div>
+                                <div style="margin-bottom: 16px;">
+                                    <div style="font-size: 22px; font-weight: 600; color: #5D4E60;">Good morning, Sarah</div>
+                                    <div style="font-size: 12px; color: #9B8A9E; margin-top: 2px;">Sunday, April 13</div>
+                                </div>
+
+                                <!-- Child circles -->
+                                <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                                    <div id="prev-child1" style="width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700;">E</div>
+                                    <div style="width: 36px; height: 36px; border-radius: 50%; background: #9B8AA0; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700;">L</div>
                                 </div>
 
                                 <!-- Meals card -->
-                                <div style="background: white; border-radius: 14px; padding: 12px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);">
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                                        <div style="display: flex; align-items: center; gap: 6px;">
-                                            <div id="prev-icon-meals" style="width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px;">🍽️</div>
-                                            <span id="prev-title-meals" style="font-size: 13px; font-weight: 600;">Today's Meals</span>
+                                <div style="background: white; border-radius: 20px; padding: 16px 16px 12px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span id="prev-icon-meals" style="font-size: 18px;">🍽️</span>
+                                            <span id="prev-title-meals" style="font-size: 15px; font-weight: 600; color: #5D4E60;">Today's Meals</span>
                                         </div>
-                                        <div id="prev-add-btn" style="width: 24px; height: 24px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: white;">+</div>
+                                        <div id="prev-cart" style="width: 30px; height: 30px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px;">🛒</div>
                                     </div>
-                                    <div style="font-size: 11px; color: #888; margin-bottom: 6px;">Dinner</div>
+                                    <!-- Breakfast row -->
+                                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                        <div id="prev-bar1" style="width: 4px; height: 32px; border-radius: 2px; margin-right: 10px;"></div>
+                                        <div>
+                                            <div style="font-size: 10px; color: #9B8A9E;">Breakfast</div>
+                                            <div style="font-size: 13px; color: #5D4E60; font-weight: 500;">Overnight Oats</div>
+                                        </div>
+                                    </div>
+                                    <!-- Lunch row -->
+                                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                        <div id="prev-bar2" style="width: 4px; height: 32px; border-radius: 2px; margin-right: 10px;"></div>
+                                        <div>
+                                            <div style="font-size: 10px; color: #9B8A9E;">Lunch</div>
+                                            <div style="font-size: 13px; color: #5D4E60; font-weight: 500;">Turkey Wraps</div>
+                                        </div>
+                                    </div>
+                                    <!-- Dinner row -->
+                                    <div style="display: flex; align-items: center;">
+                                        <div id="prev-bar3" style="width: 4px; height: 32px; border-radius: 2px; margin-right: 10px;"></div>
+                                        <div>
+                                            <div style="font-size: 10px; color: #9B8A9E;">Dinner</div>
+                                            <div style="font-size: 13px; color: #5D4E60; font-weight: 500;">Chicken Stir Fry</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Events card -->
+                                <div style="background: white; border-radius: 20px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                        <span style="font-size: 18px;">📅</span>
+                                        <span id="prev-title-cal" style="font-size: 15px; font-weight: 600; color: #5D4E60;">Today's Events</span>
+                                    </div>
+                                    <div id="prev-event" style="border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; gap: 8px;">
+                                        <div style="width: 6px; height: 6px; border-radius: 50%; background: white;"></div>
+                                        <div>
+                                            <div style="font-size: 12px; color: white; font-weight: 500;">Soccer Practice</div>
+                                            <div style="font-size: 10px; color: rgba(255,255,255,0.7);">4:00 PM</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Todo card -->
+                                <div style="background: white; border-radius: 20px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="font-size: 18px;">✅</span>
+                                            <span id="prev-title-todo" style="font-size: 15px; font-weight: 600; color: #5D4E60;">To-Do List</span>
+                                        </div>
+                                        <div id="prev-add-todo" style="width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: white;">+</div>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                                        <div id="prev-check1" style="width: 18px; height: 18px; border-radius: 5px; border: 2px solid;"></div>
+                                        <span style="font-size: 12px; color: #5D4E60;">Pack lunches</span>
+                                    </div>
                                     <div style="display: flex; align-items: center; gap: 8px;">
-                                        <div id="prev-meal-dot" style="width: 8px; height: 8px; border-radius: 50%;"></div>
-                                        <span style="font-size: 12px; color: #333;">Chicken Stir Fry</span>
+                                        <div style="width: 18px; height: 18px; border-radius: 5px; border: 2px solid #DADADA;"></div>
+                                        <span style="font-size: 12px; color: #5D4E60;">Order diapers</span>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Calendar card -->
-                                <div style="background: white; border-radius: 14px; padding: 12px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);">
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                                        <div style="display: flex; align-items: center; gap: 6px;">
-                                            <div id="prev-icon-cal" style="width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px;">📅</div>
-                                            <span id="prev-title-cal" style="font-size: 13px; font-weight: 600;">Today's Events</span>
-                                        </div>
-                                    </div>
-                                    <div style="display: flex; gap: 4px; margin-bottom: 8px;">
-                                        <div style="width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #bbb; background: #f5f5f5;">S</div>
-                                        <div style="width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #bbb; background: #f5f5f5;">M</div>
-                                        <div id="prev-day-active" style="width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: white; font-weight: 600;">T</div>
-                                        <div style="width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #bbb; background: #f5f5f5;">W</div>
-                                        <div style="width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #bbb; background: #f5f5f5;">T</div>
-                                        <div style="width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #bbb; background: #f5f5f5;">F</div>
-                                        <div style="width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #bbb; background: #f5f5f5;">S</div>
-                                    </div>
-                                    <div id="prev-event-bar" style="border-radius: 8px; padding: 6px 10px; font-size: 11px; color: white; font-weight: 500;">Soccer Practice 4:00 PM</div>
+                            <!-- Nav bar -->
+                            <div style="background: white; display: flex; justify-content: space-around; padding: 10px 0 14px; border-top: 1px solid #f0f0f0;">
+                                <div style="text-align: center;">
+                                    <div id="prev-nav-home" style="font-size: 20px;">🏠</div>
+                                    <div id="prev-nav-home-label" style="font-size: 9px; font-weight: 600; margin-top: 1px;">Home</div>
                                 </div>
-
-                                <!-- To-Do card -->
-                                <div style="background: white; border-radius: 14px; padding: 12px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);">
-                                    <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
-                                        <div id="prev-icon-todo" style="width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px;">✅</div>
-                                        <span id="prev-title-todo" style="font-size: 13px; font-weight: 600;">To-Do List</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-                                        <div id="prev-check" style="width: 16px; height: 16px; border-radius: 4px; border: 2px solid;"></div>
-                                        <span style="font-size: 11px; color: #555;">Pack lunches for Monday</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 6px;">
-                                        <div style="width: 16px; height: 16px; border-radius: 4px; border: 2px solid #ddd;"></div>
-                                        <span style="font-size: 11px; color: #555;">Order diapers</span>
-                                    </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 20px;">🍽️</div>
+                                    <div style="font-size: 9px; color: #bbb; margin-top: 1px;">Meals</div>
                                 </div>
-
-                                <!-- Nav bar -->
-                                <div style="display: flex; justify-content: space-around; padding: 8px 0 4px; border-top: 1px solid #eee; margin-top: 4px;">
-                                    <div style="text-align: center;">
-                                        <div id="prev-nav1" style="font-size: 18px;">🏠</div>
-                                        <div id="prev-nav1-label" style="font-size: 8px; font-weight: 600; margin-top: 2px;">Home</div>
-                                    </div>
-                                    <div style="text-align: center;">
-                                        <div style="font-size: 18px;">🍽️</div>
-                                        <div style="font-size: 8px; color: #bbb; margin-top: 2px;">Meals</div>
-                                    </div>
-                                    <div style="text-align: center;">
-                                        <div style="font-size: 18px;">📅</div>
-                                        <div style="font-size: 8px; color: #bbb; margin-top: 2px;">Calendar</div>
-                                    </div>
-                                    <div style="text-align: center;">
-                                        <div style="font-size: 18px;">⭐</div>
-                                        <div style="font-size: 8px; color: #bbb; margin-top: 2px;">Milestones</div>
-                                    </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 20px;">📅</div>
+                                    <div style="font-size: 9px; color: #bbb; margin-top: 1px;">Calendar</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 20px;">⭐</div>
+                                    <div style="font-size: 9px; color: #bbb; margin-top: 1px;">Milestones</div>
                                 </div>
                             </div>
                         </div>
@@ -753,26 +778,26 @@
             // Background gradient
             document.getElementById('themePreview').style.background = `linear-gradient(180deg, ${gradStart}, ${gradEnd})`;
 
-            // Primary: card titles, add button, active day, event bar, check border, nav active label
-            document.getElementById('prev-title-meals').style.color = primary;
-            document.getElementById('prev-title-cal').style.color = primary;
-            document.getElementById('prev-title-todo').style.color = primary;
-            document.getElementById('prev-add-btn').style.background = primary;
-            document.getElementById('prev-day-active').style.background = primary;
-            document.getElementById('prev-meal-dot').style.background = primary;
-            document.getElementById('prev-check').style.borderColor = primary;
-            document.getElementById('prev-nav1-label').style.color = primary;
+            // Primary — buttons, meal bars, child circle, checkboxes, active nav, add buttons
+            document.getElementById('prev-child1').style.background = primary;
+            document.getElementById('prev-bar1').style.background = primary;
+            document.getElementById('prev-bar2').style.background = primary;
+            document.getElementById('prev-bar3').style.background = primary;
+            document.getElementById('prev-add-todo').style.background = primary;
+            document.getElementById('prev-check1').style.borderColor = primary;
+            document.getElementById('prev-nav-home-label').style.color = primary;
+            document.getElementById('prev-icon-meals').style.color = primary;
 
-            // Secondary: icon backgrounds
-            document.getElementById('prev-icon-meals').style.background = secondary + '33';
-            document.getElementById('prev-icon-cal').style.background = secondary + '33';
-            document.getElementById('prev-icon-todo').style.background = secondary + '33';
+            // Secondary — cart button background, subtle highlights
+            document.getElementById('prev-cart').style.background = secondary + '22';
 
-            // Accent: event bar
-            document.getElementById('prev-event-bar').style.background = accent;
+            // Accent — event card, emphasis
+            document.getElementById('prev-event').style.background = accent;
 
-            // Icon color (not easy to tint emojis — use background tint on icon containers instead)
-            // Already handled by secondary tint above
+            // Icon color — used for card header icons tint (emoji can't be tinted, so we tint the meals icon)
+            document.getElementById('prev-title-meals').style.color = icon;
+            document.getElementById('prev-title-cal').style.color = icon;
+            document.getElementById('prev-title-todo').style.color = icon;
         }
 
         async function saveProfile() {
