@@ -485,9 +485,23 @@
 
                     <!-- Live preview -->
                     <div class="theme-preview" id="themePreview">
-                        <div style="font-size: 18px; font-weight: 600;">Preview</div>
+                        <div style="font-size: 18px; font-weight: 600;" id="previewTitle">Preview</div>
                         <div style="font-size: 13px; opacity: 0.7; margin-top: 4px;">This is how your followers' app will look</div>
                         <div class="preview-btn" id="previewBtn">Start Free Trial</div>
+                        <div style="display: flex; justify-content: center; gap: 24px; margin-top: 16px;">
+                            <div style="text-align: center;">
+                                <div id="previewSecondary" style="width: 36px; height: 36px; border-radius: 10px; margin: 0 auto 4px; border: 2px solid rgba(255,255,255,0.5);"></div>
+                                <div style="font-size: 10px; opacity: 0.6;">Secondary</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div id="previewAccent" style="width: 36px; height: 36px; border-radius: 10px; margin: 0 auto 4px; border: 2px solid rgba(255,255,255,0.5);"></div>
+                                <div style="font-size: 10px; opacity: 0.6;">Accent</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div id="previewIcon" style="width: 36px; height: 36px; border-radius: 10px; margin: 0 auto 4px; border: 2px solid rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; font-size: 18px;">🍽️</div>
+                                <div style="font-size: 10px; opacity: 0.6;">Icons</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -657,6 +671,9 @@
 
         function updatePreview() {
             const primary = document.getElementById('hexPrimary').value;
+            const secondary = document.getElementById('hexSecondary').value;
+            const accent = document.getElementById('hexAccent').value;
+            const icon = document.getElementById('hexIcon').value;
             const gradStart = document.getElementById('hexGradStart').value;
             const gradEnd = document.getElementById('hexGradEnd').value;
             const preview = document.getElementById('themePreview');
@@ -666,6 +683,9 @@
             preview.style.color = primary;
             btn.style.background = primary;
             btn.style.color = 'white';
+            document.getElementById('previewSecondary').style.background = secondary;
+            document.getElementById('previewAccent').style.background = accent;
+            document.getElementById('previewIcon').style.background = icon;
         }
 
         async function saveProfile() {
@@ -968,9 +988,15 @@
                 const snap = await db.collection('creator_content')
                     .where('creator_code', '==', creatorDoc.code)
                     .where('type', '==', 'meal_plan')
-                    .orderBy('published_at', 'desc')
-                    .limit(10)
+                    .limit(20)
                     .get();
+
+                // Sort client-side to avoid needing a composite index
+                snap.docs.sort((a, b) => {
+                    const aTime = a.data().published_at?.seconds || 0;
+                    const bTime = b.data().published_at?.seconds || 0;
+                    return bTime - aTime;
+                });
 
                 if (snap.empty) {
                     container.innerHTML = '<p style="color: var(--text-secondary); font-size: 13px;">No meal plans published yet.</p>';
