@@ -287,24 +287,10 @@
             border-radius: 8px;
             font-size: 13px;
             font-family: 'Inter', sans-serif;
+            width: 100%;
         }
 
         .meal-input:focus { outline: none; border-color: var(--primary); }
-
-        .day-header {
-            display: grid;
-            grid-template-columns: 100px 1fr 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-
-        .day-header span {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            letter-spacing: 0.5px;
-        }
 
         /* Stats */
         .stats-row {
@@ -524,15 +510,7 @@
                         <input type="text" id="mealPlanDesc" placeholder="Quick description of this week's plan">
                     </div>
 
-                    <div style="margin-top: 20px;">
-                        <div class="day-header">
-                            <span></span>
-                            <span>Breakfast</span>
-                            <span>Lunch</span>
-                            <span>Dinner</span>
-                        </div>
-                        <div id="mealGrid"></div>
-                    </div>
+                    <div style="margin-top: 20px;" id="mealGrid"></div>
 
                     <button class="btn btn-primary" onclick="publishMealPlan()" id="publishBtn" style="margin-top: 20px;">Publish Meal Plan</button>
                     <div id="mealPlanMsg" class="success-msg hidden" style="text-align: center; margin-top: 8px;"></div>
@@ -743,6 +721,7 @@
                 msg.className = 'success-msg';
                 msg.classList.remove('hidden');
             } catch (e) {
+                console.error('Save error:', e);
                 msg.textContent = 'Error: ' + e.message;
                 msg.className = 'error-msg';
                 msg.classList.remove('hidden');
@@ -765,21 +744,115 @@
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         const meals = ['breakfast', 'lunch', 'dinner'];
 
+        // Cloud function URL for recipe extraction
+        const EXTRACT_RECIPE_URL = 'https://extractrecipe-ouqrjjxoeq-uc.a.run.app';
+
+        // Store extracted recipe data per slot
+        const mealData = {}; // key: "monday-dinner", value: { name, ingredients, instructions, image_url, source_url }
+
         function buildMealGrid() {
             const grid = document.getElementById('mealGrid');
             grid.innerHTML = '';
             days.forEach(day => {
-                const row = document.createElement('div');
-                row.className = 'day-row';
-                row.innerHTML = `
-                    <div class="day-label">${day}</div>
-                    ${meals.map(meal => `<input class="meal-input" id="meal-${day.toLowerCase()}-${meal}" placeholder="${meal}">`).join('')}
-                `;
-                grid.appendChild(row);
+                const dayKey = day.toLowerCase();
+                const daySection = document.createElement('div');
+                daySection.style.cssText = 'margin-bottom: 20px; padding: 16px; background: var(--bg); border-radius: 12px;';
+                daySection.innerHTML = `<div style="font-weight: 600; font-size: 14px; margin-bottom: 12px; color: var(--primary);">${day}</div>`;
+
+                meals.forEach(meal => {
+                    const slotKey = `${dayKey}-${meal}`;
+                    const slotDiv = document.createElement('div');
+                    slotDiv.style.cssText = 'margin-bottom: 10px; display: flex; gap: 8px; align-items: start;';
+                    slotDiv.innerHTML = `
+                        <div style="min-width: 70px; font-size: 12px; color: var(--text-secondary); padding-top: 10px; text-transform: capitalize;">${meal}</div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; gap: 6px;">
+                                <input class="meal-input" id="name-${slotKey}" placeholder="Recipe name" style="flex: 1;">
+                                <input class="meal-input" id="url-${slotKey}" placeholder="Paste URL (optional)" style="flex: 1; font-size: 12px;">
+                                <button class="btn btn-secondary" onclick="importRecipe('${slotKey}')" id="import-btn-${slotKey}" style="width: auto; padding: 8px 12px; font-size: 11px; white-space: nowrap;">Import</button>
+                            </div>
+                            <div id="detail-${slotKey}" style="display: none; margin-top: 6px; padding: 8px 10px; background: white; border-radius: 8px; font-size: 12px; border: 1px solid var(--border);">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: var(--success); font-weight: 600;" id="detail-status-${slotKey}"></span>
+                                    <button onclick="clearSlot('${slotKey}')" style="background: none; border: none; color: var(--error); cursor: pointer; font-size: 11px;">Clear</button>
+                                </div>
+                                <div id="detail-info-${slotKey}" style="color: var(--text-secondary); margin-top: 4px;"></div>
+                            </div>
+                        </div>
+                    `;
+                    daySection.appendChild(slotDiv);
+                });
+
+                grid.appendChild(daySection);
             });
         }
 
         buildMealGrid();
+
+        async function importRecipe(slotKey) {
+            const url = document.getElementById(`url-${slotKey}`).value.trim();
+            if (!url) {
+                alert('Paste a recipe URL first.');
+                return;
+            }
+
+            const btn = document.getElementById(`import-btn-${slotKey}`);
+            btn.disabled = true;
+            btn.textContent = '...';
+
+            try {
+                const response = await fetch(EXTRACT_RECIPE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: { url: url } }),
+                });
+
+                const json = await response.json();
+                const result = json.result || json;
+
+                if (result.error) {
+                    alert('Could not extract recipe: ' + result.error);
+                    btn.disabled = false;
+                    btn.textContent = 'Import';
+                    return;
+                }
+
+                // Store the full recipe data
+                const recipe = result.recipe || result;
+                mealData[slotKey] = {
+                    name: recipe.name || '',
+                    ingredients: recipe.ingredients || [],
+                    instructions: recipe.instructions || [],
+                    image_url: recipe.imageUrl || '',
+                    source_url: url,
+                };
+
+                // Populate name field
+                document.getElementById(`name-${slotKey}`).value = recipe.name || '';
+
+                // Show details
+                const detailDiv = document.getElementById(`detail-${slotKey}`);
+                detailDiv.style.display = 'block';
+                document.getElementById(`detail-status-${slotKey}`).textContent =
+                    `✓ Imported — ${(recipe.ingredients || []).length} ingredients, ${(recipe.instructions || []).length} steps`;
+                document.getElementById(`detail-info-${slotKey}`).textContent =
+                    (recipe.ingredients || []).slice(0, 3).join(', ') + ((recipe.ingredients || []).length > 3 ? '...' : '');
+
+            } catch (e) {
+                console.error('Import error:', e);
+                alert('Error importing recipe: ' + e.message);
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'Import';
+        }
+
+        function clearSlot(slotKey) {
+            delete mealData[slotKey];
+            document.getElementById(`name-${slotKey}`).value = '';
+            document.getElementById(`url-${slotKey}`).value = '';
+            document.getElementById(`detail-${slotKey}`).style.display = 'none';
+        }
 
         async function publishMealPlan() {
             if (!creatorDocId || !creatorDoc) {
@@ -803,18 +876,31 @@
                 return;
             }
 
-            // Build meal data
+            // Build meal data — merge imported recipes with manually typed names
             const data = {};
             let mealCount = 0;
             days.forEach(day => {
                 const dayKey = day.toLowerCase();
                 data[dayKey] = {};
                 meals.forEach(meal => {
-                    const val = document.getElementById(`meal-${dayKey}-${meal}`).value.trim();
-                    if (val) {
-                        data[dayKey][meal] = { name: val };
-                        mealCount++;
+                    const slotKey = `${dayKey}-${meal}`;
+                    const name = document.getElementById(`name-${slotKey}`).value.trim();
+                    if (!name) return;
+
+                    // Check if we have full imported data for this slot
+                    if (mealData[slotKey]) {
+                        data[dayKey][meal] = {
+                            name: name,
+                            ingredients: mealData[slotKey].ingredients,
+                            instructions: mealData[slotKey].instructions,
+                            image_url: mealData[slotKey].image_url,
+                            source_url: mealData[slotKey].source_url,
+                        };
+                    } else {
+                        // Just a name, no imported data
+                        data[dayKey][meal] = { name: name };
                     }
+                    mealCount++;
                 });
             });
 
