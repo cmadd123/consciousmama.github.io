@@ -483,24 +483,48 @@
                         </div>
                     </div>
 
-                    <!-- Live preview -->
-                    <div class="theme-preview" id="themePreview">
-                        <div style="font-size: 18px; font-weight: 600;" id="previewTitle">Preview</div>
-                        <div style="font-size: 13px; opacity: 0.7; margin-top: 4px;">This is how your followers' app will look</div>
-                        <div class="preview-btn" id="previewBtn">Start Free Trial</div>
-                        <div style="display: flex; justify-content: center; gap: 24px; margin-top: 16px;">
-                            <div style="text-align: center;">
-                                <div id="previewSecondary" style="width: 36px; height: 36px; border-radius: 10px; margin: 0 auto 4px; border: 2px solid rgba(255,255,255,0.5);"></div>
-                                <div style="font-size: 10px; opacity: 0.6;">Secondary</div>
+                    <!-- Live preview — mini app mockup -->
+                    <div style="margin-top: 20px;">
+                        <div style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px;">LIVE PREVIEW</div>
+                        <div id="themePreview" style="border-radius: 24px; padding: 20px; max-width: 320px; margin: 0 auto; border: 1px solid var(--border); overflow: hidden;">
+                            <!-- Mini header -->
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <div>
+                                    <div style="font-size: 11px; opacity: 0.5;">Good morning</div>
+                                    <div id="prev-greeting" style="font-size: 16px; font-weight: 700;">Sarah's Family</div>
+                                </div>
+                                <div id="prev-avatar" style="width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px;">S</div>
                             </div>
-                            <div style="text-align: center;">
-                                <div id="previewAccent" style="width: 36px; height: 36px; border-radius: 10px; margin: 0 auto 4px; border: 2px solid rgba(255,255,255,0.5);"></div>
-                                <div style="font-size: 10px; opacity: 0.6;">Accent</div>
+
+                            <!-- Mini card: Today's Meals -->
+                            <div id="prev-card" style="background: white; border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                    <span id="prev-icon1" style="font-size: 18px;">🍽️</span>
+                                    <span id="prev-card-title" style="font-size: 13px; font-weight: 600;">Today's Meals</span>
+                                </div>
+                                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                                    <div id="prev-tag1" style="padding: 4px 10px; border-radius: 50px; font-size: 11px; font-weight: 500;">Breakfast</div>
+                                    <div id="prev-tag2" style="padding: 4px 10px; border-radius: 50px; font-size: 11px; font-weight: 500;">Lunch</div>
+                                    <div id="prev-tag3" style="padding: 4px 10px; border-radius: 50px; font-size: 11px; font-weight: 500; color: white;">Dinner</div>
+                                </div>
                             </div>
-                            <div style="text-align: center;">
-                                <div id="previewIcon" style="width: 36px; height: 36px; border-radius: 10px; margin: 0 auto 4px; border: 2px solid rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; font-size: 18px;">🍽️</div>
-                                <div style="font-size: 10px; opacity: 0.6;">Icons</div>
+
+                            <!-- Mini card: Calendar -->
+                            <div style="background: white; border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                    <span id="prev-icon2" style="font-size: 18px;">📅</span>
+                                    <span id="prev-card-title2" style="font-size: 13px; font-weight: 600;">Family Calendar</span>
+                                </div>
+                                <div style="display: flex; gap: 4px;">
+                                    <div id="prev-day-active" style="width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600;">12</div>
+                                    <div style="width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; background: #f5f5f5;">13</div>
+                                    <div style="width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; background: #f5f5f5;">14</div>
+                                    <div style="width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; background: #f5f5f5;">15</div>
+                                </div>
                             </div>
+
+                            <!-- Mini button -->
+                            <div id="prev-btn" style="text-align: center; padding: 10px; border-radius: 50px; color: white; font-size: 13px; font-weight: 600;">View Meal Plan</div>
                         </div>
                     </div>
                 </div>
@@ -676,16 +700,30 @@
             const icon = document.getElementById('hexIcon').value;
             const gradStart = document.getElementById('hexGradStart').value;
             const gradEnd = document.getElementById('hexGradEnd').value;
-            const preview = document.getElementById('themePreview');
-            const btn = document.getElementById('previewBtn');
 
-            preview.style.background = `linear-gradient(135deg, ${gradStart}, ${gradEnd})`;
-            preview.style.color = primary;
-            btn.style.background = primary;
-            btn.style.color = 'white';
-            document.getElementById('previewSecondary').style.background = secondary;
-            document.getElementById('previewAccent').style.background = accent;
-            document.getElementById('previewIcon').style.background = icon;
+            // Background gradient
+            document.getElementById('themePreview').style.background = `linear-gradient(160deg, ${gradStart}, ${gradEnd})`;
+
+            // Primary: greeting text, card titles, button
+            document.getElementById('prev-greeting').style.color = primary;
+            document.getElementById('prev-card-title').style.color = primary;
+            document.getElementById('prev-card-title2').style.color = primary;
+            document.getElementById('prev-btn').style.background = primary;
+            document.getElementById('prev-day-active').style.background = primary;
+            document.getElementById('prev-avatar').style.background = primary;
+
+            // Secondary: tag backgrounds (light)
+            document.getElementById('prev-tag1').style.background = secondary;
+            document.getElementById('prev-tag1').style.color = primary;
+            document.getElementById('prev-tag2').style.background = secondary;
+            document.getElementById('prev-tag2').style.color = primary;
+
+            // Accent: highlighted tag
+            document.getElementById('prev-tag3').style.background = accent;
+
+            // Icon color
+            document.getElementById('prev-icon1').style.filter = `drop-shadow(0 0 0 ${icon})`;
+            document.getElementById('prev-icon2').style.filter = `drop-shadow(0 0 0 ${icon})`;
         }
 
         async function saveProfile() {
