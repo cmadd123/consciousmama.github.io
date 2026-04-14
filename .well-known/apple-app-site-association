@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "QD9XFTWRQ9.com.momrise.app",
+        "paths": [
+          "/s/*",
+          "/shared/*"
+        ]
+      }
+    ]
+  }
+}
