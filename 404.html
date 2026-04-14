@@ -146,19 +146,42 @@
 
             // Set button action
             const btn = document.getElementById('openBtn');
-            btn.href = customScheme;
 
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Try custom scheme directly
-                window.location.href = customScheme;
+            if (isIOS) {
+                // iOS: Don't use custom scheme (Safari blocks it)
+                // Universal Links should open the app automatically
+                // If we're here, Universal Links didn't work — show instructions
+                btn.href = '#';
+                btn.textContent = 'Open MomRise App';
+                document.getElementById('subtitle').textContent =
+                    'Open MomRise on your phone and enter the share code below.';
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Try custom scheme via iframe trick (avoids Safari error)
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = customScheme;
+                    document.body.appendChild(iframe);
+                    setTimeout(() => { document.body.removeChild(iframe); }, 2000);
 
-                // If nothing happened after 1.5s, show manual instructions
-                setTimeout(() => {
-                    document.getElementById('subtitle').textContent =
-                        'If the app didn\'t open, open MomRise manually and enter the share code above.';
-                }, 1500);
-            });
+                    // Show manual instructions
+                    setTimeout(() => {
+                        document.getElementById('subtitle').textContent =
+                            'Open MomRise and go to Settings → enter the share code above to import.';
+                    }, 1500);
+                });
+            } else {
+                // Android: custom scheme works
+                btn.href = customScheme;
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = customScheme;
+                    setTimeout(() => {
+                        document.getElementById('subtitle').textContent =
+                            'If the app didn\'t open, open MomRise manually and enter the share code above.';
+                    }, 1500);
+                });
+            }
         } else {
             // Not a share link
             document.getElementById('title').textContent = 'Welcome to MomRise';
