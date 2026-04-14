@@ -139,7 +139,7 @@
             document.getElementById('codeDisplay').textContent = shareCode.toUpperCase();
 
             // Build deep link URLs
-            const customScheme = `momecoach://shared/${shareCode}`;
+            const customScheme = `momrise://shared/${shareCode}`;
             const isAndroid = /Android/i.test(navigator.userAgent);
             const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
             const intentUrl = `intent://shared/${shareCode}#Intent;scheme=momecoach;end`;
