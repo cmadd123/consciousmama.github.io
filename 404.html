@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opening in MomRise...</title>
+    <title>Open in MomRise</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
         body {
-            font-family: 'Andika New Basic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Andika', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #D7F2EB 0%, #FFE9E1 100%);
             display: flex;
             align-items: center;
@@ -22,94 +26,153 @@
         }
         .container {
             background: white;
-            border-radius: 20px;
-            padding: 40px;
+            border-radius: 24px;
+            padding: 40px 32px;
             text-align: center;
-            max-width: 400px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 12px 40px rgba(82, 160, 151, 0.15);
         }
         .logo {
-            width: 80px;
-            height: 80px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #52A097;
+            margin-bottom: 24px;
+        }
+        .icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #52A097 0%, #2A6F67 100%);
+            border-radius: 18px;
             margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
         }
         h1 {
-            color: #9B8AA0;
-            margin: 0 0 10px 0;
-            font-size: 24px;
+            color: #1a2e2c;
+            font-size: 22px;
+            margin: 0 0 8px;
         }
         p {
             color: #666;
             line-height: 1.6;
+            font-size: 15px;
+            margin: 0;
         }
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #9B8AA0;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .button {
-            display: inline-block;
-            background: #9B8AA0;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            text-decoration: none;
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
             margin-top: 20px;
-            transition: background 0.3s;
+            background: #52A097;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Andika', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
         }
-        .button:hover {
-            background: #8A7990;
+        .btn:hover { background: #2A6F67; }
+        .share-code {
+            background: #EDFFFD;
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 20px;
         }
+        .share-code label {
+            font-size: 11px;
+            color: #999;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .share-code code {
+            font-family: monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: #2A6F67;
+            letter-spacing: 3px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+        .footer a { color: #52A097; }
     </style>
-    <script>
-        // Extract share code from URL path
-        const path = window.location.pathname;
-        const shareMatch = path.match(/\/s\/([a-z0-9]{8})$/i);
-        const sharedMatch = path.match(/\/shared\/([a-z0-9]{8})$/i);
-
-        const shareCode = shareMatch ? shareMatch[1] : (sharedMatch ? sharedMatch[1] : null);
-
-        if (shareCode) {
-            // Try to open in app using custom scheme first
-            const appUrl = `momecoach://shared/${shareCode}`;
-            window.location.href = appUrl;
-
-            // Fallback: Show manual open instructions after 2 seconds
-            setTimeout(() => {
-                document.getElementById('fallback').style.display = 'block';
-                document.getElementById('loading').style.display = 'none';
-            }, 2000);
-        } else {
-            // Not a share link, redirect to home
-            window.location.replace('/');
-        }
-    </script>
 </head>
 <body>
     <div class="container">
-        <img src="/consciousmama.github.io/assets/images/image_22.png" alt="MomRise" class="logo" onerror="this.style.display='none'">
+        <div class="logo">MomRise</div>
+        <div class="icon">🎁</div>
 
-        <div id="loading">
-            <h1>Opening in App...</h1>
-            <div class="spinner"></div>
-            <p>Launching MomRise app...</p>
+        <h1 id="title">Someone shared with you!</h1>
+        <p id="subtitle">Open MomRise to view this shared content.</p>
+
+        <a class="btn" id="openBtn" href="#">Open in MomRise</a>
+
+        <div class="share-code" id="codeSection" style="display: none;">
+            <label>Share Code</label>
+            <code id="codeDisplay">--------</code>
         </div>
 
-        <div id="fallback" style="display: none;">
-            <h1>Open in App</h1>
-            <p>If the app didn't open automatically, please open MomRise manually.</p>
-            <p style="font-size: 12px; color: #999; margin-top: 20px;">
-                Don't have the app? <a href="/" style="color: #9B8AA0;">Learn more</a>
-            </p>
-        </div>
+        <p class="footer">
+            Don't have the app? <a href="/">Download MomRise</a>
+        </p>
     </div>
+
+    <script>
+        // Extract share code from URL path
+        const path = window.location.pathname;
+        const match = path.match(/\/s\/([a-z0-9]{8})$/i) || path.match(/\/shared\/([a-z0-9]{8})$/i);
+        const shareCode = match ? match[1].toLowerCase() : null;
+
+        if (shareCode) {
+            // Show the code
+            document.getElementById('codeSection').style.display = 'block';
+            document.getElementById('codeDisplay').textContent = shareCode.toUpperCase();
+
+            // Build deep link URLs
+            const customScheme = `momecoach://shared/${shareCode}`;
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            const intentUrl = `intent://shared/${shareCode}#Intent;scheme=momecoach;package=com.mycompany.momecoach;end`;
+
+            // Set button action
+            const btn = document.getElementById('openBtn');
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (isAndroid) {
+                    // Android: use intent URL (opens app or falls back to store)
+                    window.location.href = intentUrl;
+                } else if (isIOS) {
+                    // iOS: Universal Links should handle momrise.app/s/CODE directly
+                    // If we're here, Universal Links didn't work — try custom scheme
+                    window.location.href = customScheme;
+                } else {
+                    // Desktop
+                    alert('Open this link on your phone to view in MomRise');
+                }
+            });
+
+            // On Android, also try auto-opening via intent
+            if (isAndroid) {
+                // Small delay so the page renders first
+                setTimeout(() => {
+                    window.location.href = intentUrl;
+                }, 500);
+            }
+        } else {
+            // Not a share link
+            document.getElementById('title').textContent = 'Welcome to MomRise';
+            document.getElementById('subtitle').textContent = 'The all-in-one parenting app.';
+            document.getElementById('openBtn').href = '/';
+            document.getElementById('openBtn').textContent = 'Visit MomRise';
+        }
+    </script>
 </body>
 </html>
