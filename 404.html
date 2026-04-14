@@ -75,7 +75,9 @@
             font-weight: 700;
             cursor: pointer;
             text-decoration: none;
+            text-align: center;
             transition: background 0.2s;
+            box-sizing: border-box;
         }
         .btn:hover { background: #2A6F67; }
         .share-code {
@@ -144,28 +146,19 @@
 
             // Set button action
             const btn = document.getElementById('openBtn');
+            btn.href = customScheme;
+
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
-                if (isAndroid) {
-                    // Android: use intent URL (opens app or falls back to store)
-                    window.location.href = intentUrl;
-                } else if (isIOS) {
-                    // iOS: Universal Links should handle momrise.app/s/CODE directly
-                    // If we're here, Universal Links didn't work — try custom scheme
-                    window.location.href = customScheme;
-                } else {
-                    // Desktop
-                    alert('Open this link on your phone to view in MomRise');
-                }
-            });
+                // Try custom scheme directly
+                window.location.href = customScheme;
 
-            // On Android, also try auto-opening via intent
-            if (isAndroid) {
-                // Small delay so the page renders first
+                // If nothing happened after 1.5s, show manual instructions
                 setTimeout(() => {
-                    window.location.href = intentUrl;
-                }, 500);
-            }
+                    document.getElementById('subtitle').textContent =
+                        'If the app didn\'t open, open MomRise manually and enter the share code above.';
+                }, 1500);
+            });
         } else {
             // Not a share link
             document.getElementById('title').textContent = 'Welcome to MomRise';
